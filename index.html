@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【第1面】ファンコミュニティ新聞：戦略の全体像</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="newspaper-container">
+        <header>
+            <h1>ファンコミュニティ新聞</h1>
+            <nav>
+                <a href="index.html" class="active">第1面: 戦略の全体像</a>
+                <a href="page2.html">第2面: 成功へのロードマップ</a>
+                <a href="page3.html">第3面: 成功事例とツール</a>
+            </nav>
+        </header>
+
+        <main>
+            <article class="main-article">
+                <h2 class="headline">我々はパーツを売るのではない。ムーブメントを創造するのだ。</h2>
+                <p class="lead">- ファンとの「共創」で築く、ニッチトップ戦略の全貌 -</p>
+                <p>大手メーカーの画一的な製品に飽き足らない、創造性豊かな鉄道模型ファンたちへ。我々は単なる代替パーツメーカーではない。ファンの「こんなの欲しかった！」という声をカタチにし、共に新しい鉄道模型の世界を切り拓く「共創パートナー」である。本紙では、3Dプリンター技術と顧客との深い連携を武器に、市場を席巻するためのコミュニティ戦略を詳解する。</p>
+            </article>
+
+            <div class="columns">
+                <section class="column">
+                    <h3>我々の哲学：成功への三本柱</h3>
+                    <div class="pillar">
+                        <h4>1.【製品】独創性と品質の両立</h4>
+                        <p><strong>戦略：</strong>「公式にはない」という価値の提供。分岐、合流、特殊橋脚など、レイアウトの可能性を無限に広げるパーツを供給する。</p>
+                        <p><strong>品質：</strong>純正品に劣らない色合いと、子供が安全に使えるPETG等の高耐久素材を徹底。信頼がコミュニティの土台となる。</p>
+                    </div>
+                    <div class="pillar">
+                        <h4>2.【コンテンツ】創造性の着火剤</h4>
+                        <p><strong>戦略：</strong>製品を使った独創的なレイアウト例を、X（旧Twitter）やYouTubeで積極的に発信する。単なる製品紹介ではなく、「こんな使い方があったのか！」という驚きと発見を提供する。</p>
+                        <p><strong>役割：</strong>ファンが自身の作品を投稿したくなるような「お手本」と「インスピレーション」を供給し続ける。</p>
+                    </div>
+                    <div class="pillar">
+                        <h4>3.【コミュニケーション】リクエスト駆動開発</h4>
+                        <p><strong>戦略：</strong>SNSや専用フォームを通じて、ファンからの製品リクエストを常時受け付ける。優れたアイデアは即座に製品化し、提案者を「名誉開発者」として称える。</p>
+                        <p><strong>効果：</strong>ファンは単なる消費者ではなく、開発の当事者となる。これが最強のエンゲージメントを生む。</p>
+                    </div>
+                </section>
+
+                <section class="column">
+                    <h3>コミュニティ・エンジン：成功へのサイクル</h3>
+                    <div class="mermaid">
+graph TD
+    A[1. 魅力的なコンテンツ発信<br>(YouTube, X)] --> B{2. ファンの創造性を刺激};
+    B --> C[3. ファンによる作品投稿<br>(#自作プラレールパーツ)];
+    C --> D{4. コミュニティ内で<br>アイデアや要望が生まれる};
+    D --> E[5. リクエスト駆動開発<br>(新製品の企画・製造)];
+    E --> F[6. 新製品をファンと共に発表<br>(提案者への謝辞)];
+    F --> A;
+
+    subgraph 製品・品質
+        E
+    end
+    subgraph コンテンツ
+        A
+    end
+    subgraph コミュニケーション
+        C
+        D
+        F
+    end
+                    </div>
+                    <p><strong>解説：</strong> このサイクルを回し続けることで、製品ラインナップとファンの熱狂が雪だるま式に増大していく。<strong>最大のマーケティング資産は、ファン自身が創り出すコンテンツ（UGC: User Generated Content）</strong>である。</p>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

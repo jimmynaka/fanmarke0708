@@ -1,0 +1,135 @@
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    background-color: #f4f1ea;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.newspaper-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+}
+
+header {
+    padding: 20px;
+    border-bottom: 4px double #333;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 48px;
+    font-family: 'Shippori Mincho', serif;
+    margin: 0;
+}
+
+nav {
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+nav a.active {
+    color: #d9534f;
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+.main-article {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.headline {
+    font-size: 36px;
+    font-family: 'Shippori Mincho', serif;
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+
+.lead {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.columns-single {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.column, .phase, .case-study, .pillar {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+
+.column h3, .phase h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 24px;
+    border-bottom: 2px solid #d9534f;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.pillar, .case-study {
+    margin-bottom: 20px;
+}
+
+.pillar h4, .case-study h4 {
+    font-size: 18px;
+    color: #0056b3;
+}
+
+.mermaid {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.toolkit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.toolkit-table th, .toolkit-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.toolkit-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.toolkit-table td:first-child {
+    font-weight: bold;
+}
