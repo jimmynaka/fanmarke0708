@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インタラクティブ3DデータIPビジネスモデル構想</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Tech -->
+    <!-- Application Structure Plan: ユーザーが情報の流れを直感的に追えるよう、単一の垂直スクロールページで物語を語る構成を採用。1.「なぜ今か(課題と好機)」→2.「何をすべきか(解決策の全体像)」→3.「どう実現するか(各ステップの詳細)」→4.「その先の未来(エコシステム)」の順に展開。ナビゲーションで各ステップにジャンプでき、重要なコンセプトはインタラクティブな図やグラフで視覚化する。これにより、元のレポートの構造をただ模倣するのではなく、ユーザーの理解を深めるための論理的なストーリーテリングを実現する。 -->
+    <!-- Visualization & Content Choices: 
+        - 課題と強み: 数値を動的に見せるカード形式で提示（JSで制御）。Goal: Inform。
+        - コンテンツ輸出額の将来性: Chart.jsの棒グラフで現状(5.8兆円)と目標(20兆円)を比較。Goal: Compare。Justification: 数値のインパクトを視覚的に強調。
+        - 輸出モデル比較: HTML/CSSのGridレイアウトで「物理輸出」と「データ輸出」のプロセスを並べ、データ輸出の優位性をアイコンとテキストで示す。Goal: Compare/Organize。Justification: 複雑な概念をシンプルに分解し、利点を明確化。
+        - エコシステム: HTML/CSSとJSによるインタラクティブなフロー図。ホバーで関連要素がハイライトされ、説明が表示される。Goal: Relationships/Organize。Justification: 循環する価値創造の仕組みを動的に表現。
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #F8F7F4;
+            color: #3a3a3a;
+        }
+        .bg-warm-neutral { background-color: #F8F7F4; }
+        .bg-soft-accent { background-color: #EAE7E1; }
+        .text-main { color: #3a3a3a; }
+        .text-accent { color: #005A8D; }
+        .border-accent { border-color: #005A8D; }
+        .ring-accent { --tw-ring-color: #005A8D; }
+        .nav-link {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #005A8D;
+            border-bottom-color: #005A8D;
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-warm-neutral text-main">
+
+    <header class="sticky top-0 bg-warm-neutral/80 backdrop-blur-lg z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-accent">3DデータIPビジネス構想</h1>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#step0" class="nav-link">基盤戦略</a>
+                    <a href="#step1" class="nav-link">Step 1: PF構築</a>
+                    <a href="#step2" class="nav-link">Step 2: 国内展開</a>
+                    <a href="#step3" class="nav-link">Step 3: 世界展開</a>
+                    <a href="#step4" class="nav-link">Step 4: 未来像</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section class="text-center mb-24 scroll-reveal">
+            <h2 class="text-4xl md:text-5xl font-bold text-accent mb-4">日本の新たな勝ち筋</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">製造業とコンテンツ産業の融合による、次世代のビジネスモデル。3Dプリンティング技術を核に、「モノ」から「データ」の輸出へと事業構造を転換し、日本の未来を切り拓きます。</p>
+        </section>
+
+        <section id="step0" class="mb-24 scroll-reveal">
+            <h3 class="text-3xl font-bold text-center mb-2 text-accent">【ステップ0】 基盤となる思想と戦略</h3>
+            <p class="text-center text-lg max-w-4xl mx-auto mb-12">このビジネスモデルは、現在の日本が直面する課題と、私たちが持つ独自の強みの分析から生まれました。全ての戦略の土台となる、日本の進むべき方向性を示します。</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-soft-accent p-6 rounded-lg shadow">
+                    <h4 class="text-2xl font-bold mb-4">社会課題の認識</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-4">📉</span>
+                            <div>
+                                <h5 class="font-bold">労働生産人口の減少</h5>
+                                <p>少子高齢化が進み、製造や介護の現場は深刻な人手不足に直面しています。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                    <h4 class="text-2xl font-bold mb-4">日本の強みの再定義</h4>
+                    <ul class="space-y-4">
+                         <li class="flex items-start">
+                            <span class="text-2xl mr-4">🏭</span>
+                            <div>
+                                <h5 class="font-bold">世界トップクラスの製造業</h5>
+                                <p>高付加価値な「設計開発」と「ブランド力」に更に注力し、価値に基づいた価格設定へ転換します。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-4">🎨</span>
+                            <div>
+                                <h5 class="font-bold">強力なコンテンツ産業 (IP)</h5>
+                                <p>アニメ・ゲーム等のIPは、自動車を凌ぐ可能性を秘めた巨大輸出産業となり得ます。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="step1" class="mb-24 scroll-reveal">
+            <h3 class="text-3xl font-bold text-center mb-2 text-accent">【ステップ1】 3DデータIPプラットフォームの構築</h3>
+             <p class="text-center text-lg max-w-4xl mx-auto mb-12">このビジネスモデルの中核となるのが、デジタルデータの取引市場です。クリエイターや企業が著作権を保護されながら、安全に3Dデータを売買・利用できる世界的なマーケットプレイスを創設します。</p>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="border-r border-gray-200 pr-8">
+                        <h4 class="text-xl font-bold mb-2">コンテンツIP</h4>
+                        <p class="text-5xl mb-4">🎮</p>
+                        <p>アニメ、漫画、ゲームの公式キャラクターデータを集積。原作者に正しく収益を還元します。</p>
+                    </div>
+                    <div class="border-r border-gray-200 pr-8">
+                        <h4 class="text-xl font-bold mb-2">ロボットIP</h4>
+                        <p class="text-5xl mb-4">🤖</p>
+                        <p>カスタムハンドや外装パーツのデータを提供。高コストな開発・導入障壁を低減します。</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">製造業IP</h4>
+                        <p class="text-5xl mb-4">🔩</p>
+                        <p>中小企業が持つ優れた治具や補修部品の設計データを資産化し、新たな収益源とします。</p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-8 border-t border-dashed">
+                    <h4 class="text-center text-xl font-bold mb-4">プラットフォームの重要機能</h4>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">IPホルダーへの収益還元</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">クリエイター支援</span>
+                        <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">ライセンス管理・海賊版対策</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="step2" class="mb-24 scroll-reveal">
+            <h3 class="text-3xl font-bold text-center mb-2 text-accent">【ステップ2】 3Dプリンティングによる国内事業展開</h3>
+             <p class="text-center text-lg max-w-4xl mx-auto mb-12">プラットフォーム上のデータを活用し、物理的な製品を国内で提供するサービスです。大規模工場ではなく小規模な「マイクロファクトリー」を各地に展開し、低リスクなオンデマンド製造を実現します。</p>
+            <div class="bg-soft-accent p-8 rounded-lg shadow">
+                 <div class="flex flex-col md:flex-row items-center justify-around text-center">
+                    <div class="p-4">
+                        <p class="text-4xl mb-2">🏢</p>
+                        <p class="text-lg font-bold">IPプラットフォーム<br>(デジタルデータ)</p>
+                    </div>
+                    <div class="text-4xl text-accent p-4 font-mono">&rarr;</div>
+                     <div class="p-4">
+                        <p class="text-4xl mb-2">🏭</p>
+                        <p class="text-lg font-bold">マイクロファクトリー<br>(オンデマンド製造)</p>
+                    </div>
+                    <div class="text-4xl text-accent p-4 font-mono">&rarr;</div>
+                    <div class="p-4 space-y-4">
+                        <div>
+                            <p class="text-3xl">👤</p>
+                            <p class="font-bold">個人ファンへ<br>(高品質グッズ)</p>
+                        </div>
+                        <div>
+                           <p class="text-3xl">🏢</p>
+                           <p class="font-bold">中小企業へ<br>(部品・治具)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="step3" class="mb-24 scroll-reveal">
+            <h3 class="text-3xl font-bold text-center mb-2 text-accent">【ステップ3】 グローバル展開（データダウンロード輸出）</h3>
+             <p class="text-center text-lg max-w-4xl mx-auto mb-12">このモデルの真価は、物理的なモノではなく「データ」そのものを輸出することにあります。輸送コスト・関税・在庫が不要な、極めて高利益率な新しい輸出の形です。</p>
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center">従来型：物理製品の輸出</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><span class="text-2xl mr-3">🏭</span><span>国内で製造</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">📦</span><span>梱包・在庫管理</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🚢</span><span>海上・航空輸送</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🛂</span><span>税関手続き</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🚚</span><span>現地での配送</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">👤</span><span>顧客の手元へ</span></li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 border-2 border-accent p-6 rounded-lg shadow-xl">
+                    <h4 class="font-bold text-xl mb-4 text-center text-accent">新モデル：3Dデータの輸出</h4>
+                     <ul class="space-y-3">
+                        <li class="flex items-center"><span class="text-2xl mr-3">💻</span><span>プラットフォームでデータ販売</span></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3 text-green-500">✅</span><span class="font-bold">海外ユーザーが購入・DL</span></li>
+                        <li class="flex items-center opacity-50"><span class="text-2xl mr-3">📦</span><del>梱包・在庫管理</del></li>
+                        <li class="flex items-center opacity-50"><span class="text-2xl mr-3">🚢</span><del>海上・航空輸送</del></li>
+                        <li class="flex items-center opacity-50"><span class="text-2xl mr-3">🛂</span><del>税関手続き</del></li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🖨️</span><span>顧客が現地で3Dプリント</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h4 class="text-2xl font-bold text-center mb-4">コンテンツ輸出額の成長ポテンシャル</h4>
+                <div class="chart-container">
+                    <canvas id="exportChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="step4" class="mb-12 scroll-reveal">
+            <h3 class="text-3xl font-bold text-center mb-2 text-accent">【ステップ4】 エコシステムの拡大と未来像</h3>
+            <p class="text-center text-lg max-w-4xl mx-auto mb-12">この事業が成長することで、単なるビジネスモデルを超え、新たな価値創造のサイクルが生まれます。産業の革新とクリエイター経済圏の発展が相互に作用し、持続的な成長を実現します。</p>
+            <div class="bg-soft-accent p-8 rounded-lg shadow">
+                <div class="relative grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+                    <div id="eco-item-1" class="eco-item bg-white p-4 rounded-lg shadow text-center">
+                        <p class="text-4xl">🤖</p><h4 class="font-bold">ロボット産業の革新</h4><p>パーツ組合せとAI支援でセミカスタムロボットを容易に開発。</p>
+                    </div>
+                    <div id="eco-item-2" class="eco-item bg-white p-4 rounded-lg shadow text-center">
+                        <p class="text-4xl">🏭</p><h4 class="font-bold">製造業の変革</h4><p>物理在庫からデータ在庫へ。「デジタル倉庫」でサプライチェーンを最適化。</p>
+                    </div>
+                    <div id="eco-item-3" class="eco-item bg-white p-4 rounded-lg shadow text-center">
+                       <p class="text-4xl">🎨</p> <h4 class="font-bold">新たなIPの創出</h4><p>ユーザーがデザインしたデータが人気を博し、新たな公式IPへ昇華。</p>
+                    </div>
+                    <div id="eco-item-4" class="eco-item bg-blue-100 p-4 rounded-lg shadow text-center border-2 border-accent">
+                       <p class="text-4xl">🔄</p> <h4 class="font-bold">IPプラットフォームへ蓄積</h4><p>革新の成果が新たなデータとして蓄積され、エコシステム全体を強化。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-soft-accent mt-16 py-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2025 Interactive IP Business Model. All Rights Reserved.</p>
+            <p class="text-sm mt-2">このアプリケーションは、山田太郎参議院議員の提言を基に作成された構想です。</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Chart.js
+    const ctx = document.getElementById('exportChart').getContext('2d');
+    const exportChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['現状 (2023年)', '将来目標'],
+            datasets: [{
+                label: 'コンテンツ輸出額（兆円）',
+                data: [5.8, 20],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '日本のコンテンツ産業の輸出額'
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function(context) {
+                      let label = context.dataset.label || '';
+                      if (label) {
+                        label += ': ';
+                      }
+                      if (context.parsed.y !== null) {
+                        label += context.parsed.y + '兆円';
+                      }
+                      return label;
+                    }
+                  }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '金額（兆円）'
+                    }
+                }
+            }
+        }
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    // Nav-link active state on scroll
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+    
+    const onScroll = () => {
+        const scrollPosition = window.scrollY + 150;
+        
+        sections.forEach(section => {
+            if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${section.id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    };
+    window.addEventListener('scroll', onScroll);
+
+    // Smooth scroll for nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
