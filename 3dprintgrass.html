@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Dプリンティングニュース - PA6フィラメント特集</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        
+        .newspaper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .newspaper-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        .main-headline {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+            color: #d32f2f;
+            border: 3px solid #d32f2f;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffe0e0, #fff);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .problem-section {
+            border: 2px solid #ff5722;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff3e0, #ffffff);
+            border-radius: 10px;
+        }
+        
+        .solution-section {
+            border: 2px solid #4caf50;
+            padding: 25px;
+            background: linear-gradient(135deg, #e8f5e8, #ffffff);
+            border-radius: 10px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .problem-title {
+            background: #ff5722;
+            color: white;
+        }
+        
+        .solution-title {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .moisture-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            border: 2px dashed #2196f3;
+        }
+        
+        .filament-icon {
+            width: 60px;
+            height: 60px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 20px;
+        }
+        
+        .arrow {
+            font-size: 24px;
+            color: #2196f3;
+        }
+        
+        .moisture-effects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .effect-item {
+            background: #ffebee;
+            padding: 15px;
+            border-left: 4px solid #f44336;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .effect-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .prevention-steps {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .step-item {
+            background: #e8f5e8;
+            padding: 15px;
+            border-left: 4px solid #4caf50;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .step-number {
+            background: #4caf50;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        
+        .humidity-indicator {
+            background: #fff9c4;
+            border: 2px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .humidity-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff9800;
+        }
+        
+        .bottom-note {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-left: 5px solid #333;
+            font-style: italic;
+        }
+        
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #ff6f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <div class="header">
+            <h1 class="newspaper-title">3Dプリンティングニュース</h1>
+            <p class="subtitle">材料技術特集号 | 2025年7月15日発行</p>
+        </div>
+        
+        <div class="main-headline">
+            PA6（ナイロン）フィラメントの吸湿性対策<br>
+            <span style="font-size: 24px;">プリント品質を守る必須知識</span>
+        </div>
+        
+        <div class="content-grid">
+            <div class="problem-section">
+                <h2 class="section-title problem-title">⚠️ 問題：吸湿による品質低下</h2>
+                
+                <div class="moisture-diagram">
+                    <div class="filament-icon">PA6</div>
+                    <div class="arrow">💧→</div>
+                    <div style="color: #f44336; font-weight: bold;">水分吸収</div>
+                    <div class="arrow">→💨</div>
+                    <div style="color: #f44336; font-weight: bold;">水蒸気発生</div>
+                </div>
+                
+                <div class="warning-box">
+                    <div class="warning-icon">⚡</div>
+                    <div>PA6は<span class="highlight">非常に吸湿性が高い</span>材料です</div>
+                </div>
+                
+                <h3 style="color: #d32f2f; margin-top: 20px;">プリント時の症状</h3>
+                <div class="moisture-effects">
+                    <div class="effect-item">
+                        <div class="effect-icon">🔊</div>
+                        <div><strong>パチパチ音</strong><br>水分が水蒸気になる音</div>
+                    </div>
+                    <div class="effect-item">
+                        <div class="effect-icon">🕷️</div>
+                        <div><strong>糸引き</strong><br>表面品質の悪化</div>
+                    </div>
+                    <div class="effect-item">
+                        <div class="effect-icon">🏔️</div>
+                        <div><strong>ザラザラ表面</strong><br>仕上がりの劣化</div>
+                    </div>
+                    <div class="effect-item">
+                        <div class="effect-icon">💥</div>
+                        <div><strong>強度低下</strong><br>機械的性能の悪化</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="solution-section">
+                <h2 class="section-title solution-title">✅ 解決策：適切な保管と使用</h2>
+                
+                <div class="prevention-steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <strong>真空パック保管</strong><br>
+                        使用直前まで密封状態を維持
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <strong>フィラメント乾燥機</strong><br>
+                        専用機器での乾燥処理
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <strong>防湿庫使用</strong><br>
+                        ドライボックスでの保管
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <strong>湿度管理</strong><br>
+                        20%以下の環境維持
+                    </div>
+                </div>
+                
+                <div class="humidity-indicator">
+                    <div>目標湿度</div>
+                    <div class="humidity-value">≤20%</div>
+                    <div style="color: #666; font-size: 14px;">この数値を厳守することが重要</div>
+                </div>
+                
+                <div class="warning-box">
+                    <div class="warning-icon">📌</div>
+                    <div><strong>使用中も継続的な湿度管理が必要です</strong></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-note">
+            <strong>専門家からのアドバイス：</strong>
+            PA6フィラメントは高性能な材料ですが、適切な取り扱いが品質を左右します。
+            吸湿性の理解と対策の徹底により、優れたプリント結果を得ることができます。
+            投資した材料を無駄にしないためにも、湿度管理は必須の工程として位置づけましょう。
+        </div>
+    </div>
+</body>
+</html>
