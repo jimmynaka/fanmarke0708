@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高温対応3Dプリンター・素材ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            min-height: 90vh;
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            color: #333;
+        }
+        
+        .page-indicator {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #666;
+        }
+        
+        .material-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 6px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .material-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        
+        .material-card:hover::before {
+            right: 100%;
+        }
+        
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .material-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .material-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .temp-badge {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00b894;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .applications {
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .applications h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .printer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .printer-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 3px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .printer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .printer-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .spec-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .spec-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .spec-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .trend-item {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e53e3e;
+        }
+        
+        .trend-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .selection-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .selection-point {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .selection-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .point-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .point-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .footer p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .page {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-buttons {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .printer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .selection-points {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page 1: タイトル・概要 -->
+        <div class="page active" id="page1">
+            <div class="header">
+                <h1>高温対応3Dプリンター・素材ガイド</h1>
+                <p>最新の耐熱性フィラメントと高温対応プリンターの完全ガイド</p>
+            </div>
+            
+            <div class="page-indicator">Page 1 / 6</div>
+            
+            <div style="text-align: center; margin: 50px 0;">
+                <div class="icon">🔥</div>
+                <h2 style="color: #2c3e50; margin-bottom: 30px;">高温環境での3Dプリンティング革命</h2>
+                <p style="font-size: 1.2em; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                    3Dプリンティング技術の進歩により、従来では困難だった高温環境での使用に耐える部品の製造が可能になりました。
+                    本ガイドでは、最新の耐熱性フィラメントと高温対応プリンターについて詳しく解説し、
+                    適切な素材選択のポイントをご紹介します。
+                </p>
+            </div>
+            
+            <div class="selection-points">
+                <div class="selection-point">
+                    <div class="point-icon">🧪</div>
+                    <div class="point-title">耐熱性フィラメント</div>
+                    <p>160℃まで対応可能な最新素材をご紹介。ガラス繊維強化PLAからポリカーボネートまで幅広くカバー。</p>
+                </div>
+                
+                <div class="selection-point">
+                    <div class="point-icon">🖨️</div>
+                    <div class="point-title">高温対応プリンター</div>
+                    <p>480℃のノズル温度に対応するデスクトップ型プリンターなど、最新機種の特徴を解説。</p>
+                </div>
+                
+                <div class="selection-point">
+                    <div class="point-icon">⚙️</div>
+                    <div class="point-title">選定のポイント</div>
+                    <p>用途に応じた最適な素材選択と、造形成功のためのキーポイントを詳しく説明。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: ガラス繊維強化PLA & 140℃耐熱PLA -->
+        <div class="page" id="page2">
+            <div class="header">
+                <h1>高性能PLAフィラメント</h1>
+                <p>ガラス繊維強化と140℃耐熱タイプの特徴</p>
+            </div>
+            
+            <div class="page-indicator">Page 2 / 6</div>
+            
+            <div class="material-card">
+                <div class="material-title">
+                    <div class="material-number">1</div>
+                    ガラス繊維強化PLAフィラメント LFG30
+                </div>
+                <div class="temp-badge">耐熱温度: 最大160℃（アニール処理後）</div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <h4>🔬 高強度・高安定性</h4>
+                        <p>ガラス繊維30%充填により、収縮が抑えられ、反りが少ない安定した造形が可能</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>💪 優れた機械的特性</h4>
+                        <p>強度・耐衝撃性が高く、工業用途に適した物性を実現</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🎨 後加工性</h4>
+                        <p>研磨や塗装などの後加工が容易で、美しい仕上がりが得られる</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📐 造形適性</h4>
+                        <p>オーバーハング造形や大サイズの造形に特に優れている</p>
+                    </div>
+                </div>
+                
+                <div class="applications">
+                    <h4>🎯 主な用途</h4>
+                    <p>高温環境下での部品製作、精密造形、工業用ジグ・治具、耐熱性が要求される機能部品</p>
+                </div>
+            </div>
+
+            <div class="material-card">
+                <div class="material-title">
+                    <div class="material-number">2</div>
+                    140℃耐熱PLAフィラメント
+                </div>
+                <div class="temp-badge">耐熱温度: 最大140℃（アニール処理後）</div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <h4>✨ 美しい仕上がり</h4>
+                        <p>無機粒子添加により、低収縮で滑らかな表面仕上げを実現</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🛠️ 造形の手軽さ</h4>
+                        <p>サポート除去が容易で、造形品の仕上がりが美しい</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🔍 高精細対応</h4>
+                        <p>高精細造形と耐熱性を両立した優れた素材</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>⚡ 安定した造形</h4>
+                        <p>反りや収縮が少なく、安定した造形が可能</p>
+                    </div>
+                </div>
+                
+                <div class="applications">
+                    <h4>🎯 主な用途</h4>
+                    <p>工業用途、高精細なデザイン造形、試作品、耐熱性デザイン部品</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: PC & ABS フィラメント -->
+        <div class="page" id="page3">
+            <div class="header">
+                <h1>高性能エンジニアリング素材</h1>
+                <p>PC（ポリカーボネート）とABS（Pro）の特徴</p>
+            </div>
+            
+            <div class="page-indicator">Page 3 / 6</div>
+            
+            <div class="material-card">
+                <div class="material-title">
+                    <div class="material-number">3</div>
+                    PC（ポリカーボネート）フィラメント
+                </div>
+                <div class="temp-badge">耐熱温度: 約110℃</div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <h4>💎 高い透明性</h4>
+                        <p>透明性が高く、カバーや保護部品に最適な光学特性</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🛡️ 優れた強度</h4>
+                        <p>高い強度と耐候性を持ち、長期使用に適している</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🔥 難燃性</h4>
+                        <p>難燃性を持つため、安全性が要求される用途に適用可能</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🌟 耐候性</h4>
+                        <p>紫外線や環境変化に対する優れた耐性</p>
+                    </div>
+                </div>
+                
+                <div class="applications">
+                    <h4>🎯 主な用途</h4>
+                    <p>高強度が求められる部品、透明な造形物、保護カバー、光学部品</p>
+                </div>
+            </div>
+
+            <div class="material-card">
+                <div class="material-title">
+                    <div class="material-number">4</div>
+                    ABS（Pro）フィラメント
+                </div>
+                <div class="temp-badge">耐熱温度: 約102℃（ビカット軟化温度）</div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <h4>⚡ 耐衝撃性</h4>
+                        <p>優れた耐衝撃性と耐熱性で、機能部品に最適</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📏 安定した造形</h4>
+                        <p>反りが少なく、安定した造形が可能</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🔧 機械的特性</h4>
+                        <p>優れた機械的特性により、実用的な部品製作が可能</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🎨 加工性</h4>
+                        <p>研磨、塗装などの後加工が容易</p>
+                    </div>
+                </div>
+                
+                <div class="applications">
+                    <h4>🎯 主な用途</h4>
+                    <p>耐久性が必要な部品、プロトタイプ製作、機能部品、工業用ジグ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: 高温対応プリンター -->
+        <div class="page" id="page4">
+            <div class="header">
+                <h1>高温対応3Dプリンター</h1>
+                <p>最新のデスクトップ型高温対応プリンター</p>
+            </div>
+            
+            <div class="page-indicator">Page 4 / 6</div>
+            
+            <div class="printer-grid">
+                <div class="printer-card">
+                    <div class="printer-title">CreatBot PEEK-250</div>
+                    <div class="icon">🏭</div>
+                    
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <div class="spec-label">ノズル温度</div>
+                            <div class="spec-value">最大480℃</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">チャンバー温度</div>
+                            <div class="spec-value">最大200℃</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">対応素材</div>
+                            <div class="spec-value">PEEK、PEI</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">タイプ</div>
+                            <div class="spec-value">デスクトップ型</div>
+                        </div>
+                    </div>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <h4>🌡️ 超高温対応</h4>
+                            <p>480℃のノズル温度でPEEK、PEIなどの高性能材料に対応</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🏢 プロフェッショナル用途</h4>
+                            <p>デスクトップ型でありながら、産業用途に対応する高性能</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🔧 安定した造形</h4>
+                            <p>高温環境下でも安定した造形が可能な設計</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="printer-card">
+                    <div class="printer-title">Bambu Lab 3Dプリンター</div>
+                    <div class="icon">⚡</div>
+                    
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <div class="spec-label">造形速度</div>
+                            <div class="spec-value">高速対応</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">精度</div>
+                            <div class="spec-value">高精度</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">対応素材</div>
+                            <div class="spec-value">多素材対応</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">操作性</div>
+                            <div class="spec-value">簡単操作</div>
+                        </div>
+                    </div>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <h4>🚀 高速・高精度</h4>
+                            <p>高速かつ高精度な造形を実現する最新技術</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🎯 多素材対応</h4>
+                            <p>カーボンファイバーや複数素材の造形に対応</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🏠 デスクトップ型</h4>
+                            <p>デスクトップ型で手軽に使用可能</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: 素材選定のポイント -->
+        <div class="page" id="page5">
+            <div class="header">
+                <h1>素材選定のポイント</h1>
+                <p>用途に応じた最適な素材選択ガイド</p>
+            </div>
+            
+            <div class="page-indicator">Page 5 / 6</div>
+            
+            <div class="selection-points">
+                <div class="selection-point">
+                    <div class="point-icon">🌡️</div>
+                    <div class="point-title">耐熱性</div>
+                    <p>使用環境の温度に応じて選択する最も重要な要素です。高温環境ならPEEKやガラス繊維強化PLAを、一般的な用途なら140℃耐熱PLAが適しています。</p>
+                </div>
+                
+                <div class="selection-point">
+                    <div class="point-icon">🎨</div>
+                    <div class="point-title">造形性</div>
+                    <p>反りや収縮が少なく、滑らかな仕上がりが得られる素材を選ぶことが重要です。特に精密造形や大型造形では、この特性が成功の鍵となります。</p>
+                </div>
+                
+                <div class="selection-point">
+                    <div class="point-icon">⚙️</div>
+                    <div class="point-title">用途別選択</div>
+                    <p>工業用途、デザイン用途、透明性が必要な用途など、目的に応じた素材選定が必要です。機能性と美観のバランスを考慮しましょう。</p>
+                </div>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>素材</th>
+                        <th>耐熱
